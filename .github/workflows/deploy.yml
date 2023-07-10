@@ -1,4 +1,4 @@
-name: Deploy Pac-Man
+name: Deploy Pac-Man On VM
 
 on:
   push:
@@ -10,16 +10,14 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Set up Node.js
-        uses: actions/setup-node@v2
+      - name: Connect to VM
+        uses: appleboy/ssh-action@main
         with:
-          node-version: 6.9.0
-
-      - name: Start MongoDB
-        run: sudo systemctl start mongod
-
-      - name: Deploy to Linux VM
-        run: |
-          cd /home/jedidiah/pacman
-          npm install
-          npm run start
+          host: 47.254.215.15
+          username: jedidiah
+          key: ${{ secrets.SSH_PRIVATE_KEY }}
+          script: |
+            sudo systemctl start mongod
+            cd /home/jedidiah/pacman
+            npm install
+            npm run start
