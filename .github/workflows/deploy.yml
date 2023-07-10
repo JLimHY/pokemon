@@ -13,8 +13,8 @@ jobs:
       - name: Connect to VM
         uses: appleboy/ssh-action@v0.1.10
         with:
-          host: 47.254.215.15
-          username: jedidiah
+          host: ${{ secrets.HOST }}
+          username: ${{ secrets.USERNAME }}
           key: ${{ secrets.SSH_PRIVATE_KEY }}
           script: |
             sudo systemctl start mongod
