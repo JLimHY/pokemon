@@ -15,9 +15,6 @@ jobs:
         with:
           node-version: 6.9.0
           
-      - name: Use specific npm version
-        run: npm install -g npm@3.10.8
-        
       - name: Connect to VM
         uses: appleboy/ssh-action@v0.1.10
         with:
