@@ -15,7 +15,8 @@ jobs:
         - name: Connect to VM
         
           run: |
-              cd /home/jedidiah/pacman
+              cd /home/jedidiah/pokemon
+              git pull origin main
               npm run start
 #uses: appleboy/ssh-action@v0.1.10
        # with:
