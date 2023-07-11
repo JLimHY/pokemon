@@ -17,6 +17,7 @@ jobs:
           run: |
               cd /home/jedidiah/pokemon
               git pull origin main
+              npm install
               npm run start
 #uses: appleboy/ssh-action@v0.1.10
        # with:
