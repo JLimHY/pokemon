@@ -7,21 +7,19 @@ on:
 
 jobs:
   deploy:
-    runs-on: ubuntu-latest
+    runs-on: self-hosted
 
     steps:
-      - name: Set up Node.js
-        uses: actions/setup-node@v2
-        with:
-          node-version: 6.9.0
-          
-      - name: Connect to VM
-        uses: appleboy/ssh-action@v0.1.10
-        with:
-          host: ${{ secrets.HOST }}
-          username: ${{ secrets.USERNAME }}
-          password: ${{ secrets.PASSWORD }}
-          key: ${{ secrets.SSH_PRIVATE_KEY }}
-          script: |
-            cd /home/jedidiah/pacman
-            npm run start
+        - uses: actions/checkout@v2
+        
+        - name: Connect to VM
+        
+          run: |
+              cd /home/jedidiah/pacman
+              npm run start
+#uses: appleboy/ssh-action@v0.1.10
+       # with:
+         # host: ${{ secrets.HOST }}
+         # username: ${{ secrets.USERNAME }}
+          #password: ${{ secrets.PASSWORD }}
+         # key: ${{ secrets.SSH_PRIVATE_KEY }}
