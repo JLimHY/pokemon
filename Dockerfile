@@ -14,7 +14,7 @@ RUN npm install
 EXPOSE 8080
 
 # Set the MongoDB connection string as an environment variable
-ENV MONGODB_URI=mongodb://localhost:27017/pacman
+ENV MONGODB_URI=mongodb://172.19.0.2:27017/pacman
 
 # Specify the command to run your app
 CMD mongod & npm start
