@@ -19,5 +19,6 @@ jobs:
 
     - name: Build and push Docker image
       run: |
-        docker build -t jlimhy/charizard:v2.0 .
-        docker push jlimhy/charizard:v2.0
+        IMAGE_TAG=$(echo $GITHUB_SHA | cut -c1-7)
+        docker build -t jlimhy/charizard:$IMAGE_TAG .
+        docker push jlimhy/charizard:$IMAGE_TAG
