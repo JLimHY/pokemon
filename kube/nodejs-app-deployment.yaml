@@ -1,0 +1,24 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: charizard
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: charizard
+  template:
+    metadata:
+      labels:
+        app: charizard
+    spec:
+      containers:
+        - name: charizard
+          image: jlimhy/charizard:v2.0
+          ports:
+            - containerPort: 8080
+          env:
+            - name: MONGO_SERVICE_HOST
+              value: "10.106.46.209"
+            - name: MY_MONGO_PORT
+              value: "27017"
