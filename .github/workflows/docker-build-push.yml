@@ -2,7 +2,7 @@ name: Docker Build & Push
 on:
   push:
     branches:
-      - main  # Change this to your default branch name
+      - main
 
 jobs:
   build-and-push:
