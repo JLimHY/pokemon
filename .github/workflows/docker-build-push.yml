@@ -30,11 +30,15 @@ jobs:
         gcloud auth activate-service-account --key-file=${{ secrets.GCP_SA_KEY }}
         gcloud config set project ${{ secrets.GCP_PROJECT_ID }}
 
+    - name: Print Kubernetes Config
+      run: |
+        cat $HOME/.kube/config
+
     - name: Configure Docker to use the GCP credential helper
       run: |
-          gcloud auth configure-docker
+        gcloud auth configure-docker
 
     - name: Apply Kubernetes YAML files
       run: |
-          kubectl apply -f kube/mongodb-deployment.yaml
-          kubectl apply -f kube/nodejs-app-deployment.yaml
+        kubectl apply -f kube/mongodb-deployment.yaml
+        kubectl apply -f kube/nodejs-app-deployment.yaml
