@@ -19,6 +19,6 @@ spec:
             - containerPort: 8080
           env:
             - name: MONGO_SERVICE_HOST
-              value: "10.106.46.209"
+              value: "10.16.1.0"
             - name: MY_MONGO_PORT
               value: "27017"
