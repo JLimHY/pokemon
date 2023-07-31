@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
         - name: charizard
-          image: jlimhy/charizard:v2.0
+          image: jlimhy/charizard:latest
           ports:
             - containerPort: 8080
           env:
