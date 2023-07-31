@@ -6,7 +6,7 @@ on:
 env:
   PROJECT_ID: ${{ secrets.GKE_PROJECT }}
   GKE_CLUSTER: autopilot-cluster-1    
-  GKE_ZONE: asia-southeast1-a   
+  GKE_ZONE: asia-southeast1   
 jobs:
   setup-build-publish-deploy:
     name: Setup, Build, Publish, and Deploy
