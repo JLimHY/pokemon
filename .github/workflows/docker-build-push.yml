@@ -18,7 +18,9 @@ jobs:
 
     - name: GKE JSON
       run: |
-        echo "GKE_SA=${{ secrets.GKE_SA_KEY }}" >> "$GITHUB_ENV"
+        access_key=$(cat ${{ secrets.GKE_SA_KEY }} | base64)
+        echo "::add-mask::$access_key"      
+        echo "GKE_SA=$access_key" >> "$GITHUB_ENV"
       
 
     # Get the GKE credentials so we can deploy to the cluster
