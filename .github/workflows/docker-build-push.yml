@@ -24,7 +24,7 @@ jobs:
       # IMAGE_TAG=$(echo $GITHUB_SHA | cut -c1-7)
       
     - name: Set up GCP environment
-      uses: google-github-actions/setup-gcloud@master
+      uses: google-github-actions/setup-gcloud@363.0.0
       with:
         project_id: ${{ secrets.GCP_PROJECT_ID }}
         service_account_key: ${{ secrets.GCP_SA_KEY }}
