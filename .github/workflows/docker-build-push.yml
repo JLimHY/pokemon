@@ -17,7 +17,7 @@ jobs:
     runs-on: ubuntu-latest
     environment: production
     container:
-      image:docker://google/cloud-sdk:slim
+      image: gcr.io/google/cloud-sdk:slim
       
     steps:
     - name: Checkout
