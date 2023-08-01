@@ -14,4 +14,4 @@ RUN npm install
 EXPOSE 8080
 
 # Specify the command to run your app
-CMD mongod & npm start
+CMD npm start
