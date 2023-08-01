@@ -51,7 +51,7 @@ jobs:
     # Update Image Tag in Deployment File using yq
     - name: Update Image Tag in Deployment File
       run: |
-        yq eval '.spec.template.spec.containers[0].image = "jlimhy/charizard:${{ env.VERSION_TAG }}'" -i nodejs-app-deployment.yaml
+        yq eval '.spec.template.spec.containers[0].image = "jlimhy/charizard:${{ env.VERSION_TAG }}"' -i nodejs-app-deployment.yaml
 
     # Deploy the first Docker image to the GKE cluster
     - name: Deploy Database & Pacman
