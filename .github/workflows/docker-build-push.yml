@@ -23,6 +23,10 @@ jobs:
     #     echo "::add-mask::$access_key"      
     #     echo "GKE_SA=$access_key" >> "$GITHUB_ENV"
       
+    - name: Authentication with SA Key
+      uses: 'google-github-actions/auth@v1'
+      with:
+        credentials_json: '${{ secrets.GKE_SA_KEY }}'
 
     # Get the GKE credentials so we can deploy to the cluster
     - uses: google-github-actions/get-gke-credentials@db150f2cc60d1716e61922b832eae71d2a45938f
