@@ -38,16 +38,16 @@ jobs:
         username: ${{ secrets.DOCKER_HUB_USERNAME }}
         password: ${{ secrets.DOCKER_HUB_ACCESS_TOKEN }}
 
-    # Generate version tag using the commit hash (you can use other methods)
-    - name: Generate Version Tag
-      run: echo "VERSION_TAG=$(git rev-parse --short HEAD)" >> $GITHUB_ENV
-
     # Build & push Docker image to docker hub
     - name: Build and push Docker image
       run: |
         docker build -t jlimhy/charizard:${{ env.VERSION_TAG }} .
-        docker push jlimhy/charizard:${{ env.VERSION_TAG }}    
-      
+        docker push jlimhy/charizard:${{ env.VERSION_TAG }}  
+
+    # Generate version tag using the commit hash (you can use other methods)
+    - name: Generate Version Tag
+      run: echo "VERSION_TAG=$(git rev-parse --short HEAD)" >> $GITHUB_ENV  
+    
     # Update Image Tag in Deployment File using yq
     - name: Update Image Tag in Deployment File
       run: |
