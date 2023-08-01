@@ -39,8 +39,8 @@ jobs:
     # Build & push Docker image to docker hub
     - name: Build and push Docker image
       run: |
-        docker build -t jlimhy/charizard:3.0 .
-        docker push jlimhy/charizard:3.0    
+        docker build -t jlimhy/charizard:v3.0 .
+        docker push jlimhy/charizard:v3.0    
 
       # Deploy the first Docker image to the GKE cluster
     - name: Deploy Database & Pacman
