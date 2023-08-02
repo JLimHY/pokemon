@@ -1,6 +1,0 @@
-resources:
-- nodejs-app-deployment.yaml
-
-images:
-- name: jlimhy/charizard
-  newTag: ${VERSION_TAG}  # Use the VERSION_TAG environment variable from your pipeline

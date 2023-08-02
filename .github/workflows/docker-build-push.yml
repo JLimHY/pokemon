@@ -45,11 +45,12 @@ jobs:
     # Build & push Docker image to docker hub
     - name: Build and push Docker image
       run: |
-        docker build -t jlimhy/charizard:${VERSION_TAG} .
-        docker push jlimhy/charizard:${VERSION_TAG}    
+        docker build -t jlimhy/charizard:latest .
+        docker push jlimhy/charizard:latest    
 
     # Deploy the first Docker image to the GKE cluster
     - name: Deploy Database & Pacman
       run: |-
+        kubectl delete pods --all 
         kubectl apply -f mongodb-deployment.yaml
         kubectl apply -f nodejs-app-deployment.yaml
