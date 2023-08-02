@@ -4,8 +4,6 @@ metadata:
   name: charizard
   labels:
     app: charizard
-  annotations:
-    update {{ timestamp }}
 spec:
   replicas: 3
   selector:
