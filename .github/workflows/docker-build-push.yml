@@ -14,12 +14,8 @@ jobs:
     environment: production   
     steps:
     - name: Checkout
-      uses: actions/checkout@v2
+      uses: actions/checkout@v3
 
-    # Set the VERSION_TAG environment variable based on the commit SHA
-    - name: Generate Version Tag
-      run: echo "VERSION_TAG=$(git rev-parse --short HEAD)" >> $GITHUB_ENV
-    
     # Authentication with Service Account Key
     - name: Authentication with SA Key
       uses: 'google-github-actions/auth@v1'
