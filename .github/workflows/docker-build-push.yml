@@ -14,7 +14,11 @@ jobs:
     environment: production   
     steps:
     - name: Checkout
-      uses: actions/checkout@v3
+      uses: actions/checkout@v2
+
+    # Set the VERSION_TAG environment variable based on the commit SHA
+    - name: Generate Version Tag
+      run: echo "VERSION_TAG=$(git rev-parse --short HEAD)" >> $GITHUB_ENV
     
     # Authentication with Service Account Key
     - name: Authentication with SA Key
@@ -41,17 +45,8 @@ jobs:
     # Build & push Docker image to docker hub
     - name: Build and push Docker image
       run: |
-        docker build -t jlimhy/charizard:${{ env.VERSION_TAG }} .
-        docker push jlimhy/charizard:${{ env.VERSION_TAG }}  
-
-    # Generate version tag using the commit hash (you can use other methods)
-    - name: Generate Version Tag
-      run: echo "VERSION_TAG=$(git rev-parse --short HEAD)" >> $GITHUB_ENV  
-    
-    # Update Image Tag in Deployment File using yq
-    - name: Update Image Tag in Deployment File
-      run: |
-        yq eval '.spec.template.spec.containers[0].image = "jlimhy/charizard:${{ env.VERSION_TAG }}"' -i nodejs-app-deployment.yaml
+        docker build -t jlimhy/charizard:${VERSION_TAG} .
+        docker push jlimhy/charizard:${VERSION_TAG}    
 
     # Deploy the first Docker image to the GKE cluster
     - name: Deploy Database & Pacman
