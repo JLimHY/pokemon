@@ -2,6 +2,10 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: charizard
+  labels:
+    app: charizard
+  annotations:
+    update {{ timestamp }}
 spec:
   replicas: 3
   selector:
