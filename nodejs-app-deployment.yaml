@@ -14,8 +14,7 @@ spec:
     spec:
       containers:
         - name: charizard
-          image: jlimhy/charizard:{{ .Evnironment.IMAGE_TAG }}
-          imagePullPolicy: Always 
+          image: jlimhy/charizard:{{ .Evnironment.IMAGE_TAG }} 
           ports:
             - containerPort: 8080
           env:
