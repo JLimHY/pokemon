@@ -1,0 +1,10 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+
+resources:
+  - mongodb-deployment.yaml
+  - nodejs-app-deployment.yaml
+
+images:
+  - name: jlimhy/charizard
+    newTag: latest  # Update to the desired image tag
