@@ -9,7 +9,7 @@ env:
   PROJECT_ID: ${{ secrets.GKE_PROJECT }}
   GKE_CLUSTER: autopilot-cluster-1    
   GKE_ZONE: asia-southeast1   
-  IMAGE_REPO:  ${{ secretes.DOCKER.HUB.USERNAME }}/charizard
+  IMAGE_REPO:  ${{ secrets.DOCKER.HUB.USERNAME }}/charizard
   VERSION_TAG: ${{ env.VERSION_TAG }}
 
 jobs:
