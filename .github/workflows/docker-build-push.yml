@@ -9,7 +9,8 @@ env:
   PROJECT_ID: ${{ secrets.GKE_PROJECT }}
   GKE_CLUSTER: autopilot-cluster-1    
   GKE_ZONE: asia-southeast1   
-  IMAGE_REPO: jlimhy/charizard
+  IMAGE_REPO:  ${{ secretes.DOCKER.HUB.USERNAME }}/charizard
+  VERSION_TAG: ${{ env.VERSION_TAG }}
 
 jobs:
   setup-build-publish-deploy:
@@ -47,9 +48,6 @@ jobs:
       run: |
         docker build -t ${{ env.IMAGE_REPO }}:${{ env.VERSION_TAG }} .
         docker push ${{ env.IMAGE_REPO }}:${{ env.VERSION_TAG }}
-      env:
-        IMAGE_REPO:  ${{ secretes.DOCKER.HUB.USERNAME }}/charizard
-        VERSION_TAG: ${{ env.VERSION_TAG }}
 
     # Deploy the updated Docker image to the GKE cluster
     - name: Deploy Database & Pacman
