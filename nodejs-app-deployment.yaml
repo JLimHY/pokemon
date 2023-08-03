@@ -13,7 +13,6 @@ spec:
     metadata:
       labels:
         app: charizard
-        update: '{{ env.VERSION_TAG }}'
     spec:
       containers:
         - name: charizard

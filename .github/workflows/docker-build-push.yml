@@ -1,51 +1,61 @@
-name: Docker Build & Push & Build and Deploy to GKE
+name: Deploy to GKE
+
 on:
   push:
     branches:
       - main
+
 env:
   PROJECT_ID: ${{ secrets.GKE_PROJECT }}
   GKE_CLUSTER: autopilot-cluster-1    
   GKE_ZONE: asia-southeast1   
+  IMAGE_REPO: jlimhy/charizard
+  TAG: ${{ github.sha }}
+
 jobs:
-  setup-build-publish-deploy:
-    name: Setup, Build, Publish, and Deploy
+  setup:
+    name: Setup
     runs-on: ubuntu-latest
-    environment: production   
     steps:
-    - name: Checkout
-      uses: actions/checkout@v3
+      - name: Checkout
+        uses: actions/checkout@v2
 
-    # Authentication with Service Account Key
-    - name: Authentication with SA Key
-      uses: 'google-github-actions/auth@v1'
-      with:
-        credentials_json: '${{ secrets.GKE_SA_KEY }}'
+      - name: Authentication with SA Key
+        uses: 'google-github-actions/auth@v1'
+        with:
+          credentials_json: '${{ secrets.GKE_SA_KEY }}'
 
-    # Get the GKE credentials so we can deploy to the cluster
-    - name: GKE Credentials 
-      uses: google-github-actions/get-gke-credentials@db150f2cc60d1716e61922b832eae71d2a45938f
-      with:
-        project_id: ${{ secrets.GKE_PROJECT }}
-        cluster_name: ${{ env.GKE_CLUSTER }}
-        location: ${{ env.GKE_ZONE }}
-        credentials: ${{ secrets.GKE_SA_KEY }}
+  build_push:
+    name: Build & Push Docker Image
+    runs-on: ubuntu-latest
+    needs: setup
+    steps:
+      - name: Login to Docker Hub
+        uses: docker/login-action@v1
+        with:
+          username: ${{ secrets.DOCKER_HUB_USERNAME }}
+          password: ${{ secrets.DOCKER_HUB_ACCESS_TOKEN }}
 
-    # Login to Docker Hub
-    - name: Login to Docker Hub
-      uses: docker/login-action@v1
-      with:
-        username: ${{ secrets.DOCKER_HUB_USERNAME }}
-        password: ${{ secrets.DOCKER_HUB_ACCESS_TOKEN }}
+      - name: Build and push Docker image
+        run: |
+          docker build -t $IMAGE_REPO:$TAG .
+          docker push $IMAGE_REPO:$TAG
 
-    # Build & push Docker image to docker hub
-    - name: Build and push Docker image
-      run: |
-        docker build -t jlimhy/charizard:${{ env.VERSION_TAG }} .
-        docker push jlimhy/charizard:${{ env.VERSION_TAG }}    
+  deploy:
+    name: Deploy to GKE
+    runs-on: ubuntu-latest
+    needs: [setup, build_push]
+    steps:
+      - name: Get GKE Credentials
+        uses: google-github-actions/get-gke-credentials@db150f2cc60d1716e61922b832eae71d2a45938f
+        with:
+          project_id: ${{ secrets.GKE_PROJECT }}
+          cluster_name: ${{ env.GKE_CLUSTER }}
+          location: ${{ env.GKE_ZONE }}
+          credentials: ${{ secrets.GKE_SA_KEY }}
 
-    # Deploy the first Docker image to the GKE cluster
-    - name: Deploy Database & Pacman
-      run: |-
-        kubectl apply -f mongodb-deployment.yaml
-        kubectl apply -f nodejs-app-deployment.yaml
+      - name: Apply MongoDB Deployment
+        run: kubectl apply -f mongodb-deployment.yaml
+
+      - name: Apply Node.js App Deployment
+        run: kubectl apply -f nodejs-app-deployment.yaml
