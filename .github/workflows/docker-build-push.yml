@@ -53,7 +53,6 @@ jobs:
     - name: Modify Kustomize image tag
       run: |
         sed -i "s|REPLACE_IMAGE_TAG|$IMAGE_TAG|" kustomization.yaml
-        sed -i "s|REPLACE_IMAGE_TAG|$IMAGE_TAG|" nodejs-app-deployment.yaml
 
     # Apply Kustomize
     - name: Apply Kustomize
