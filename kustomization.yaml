@@ -1,0 +1,10 @@
+resources:
+- deployment.yaml
+- service.yaml
+- mongodb-deployment.yaml
+- nodejs-app-deployment.yaml
+
+images:
+- name: jlimhy/charizard
+  newName: $IMAGE_REPO
+  newTag: latest
