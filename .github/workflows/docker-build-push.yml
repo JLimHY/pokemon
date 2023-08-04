@@ -51,14 +51,7 @@ jobs:
     # Modify Deployment YAML using yq
     - name: Modify Deployment YAML
       run: |
-        wget https://github.com/mikefarah/yq/releases/download/v4.11.2/yq_linux_amd64 -O /usr/local/bin/yq
-        chmod +x /usr/local/bin/yq
-        yq eval '.spec.template.spec.containers[0].image = "$IMAGE_REPO:latest"' -i nodejs-app-deployment.yaml
-
-    # Apply the Kustomization
-    - name: Apply Kustomization
-      run: |
-        kubectl apply -k .
+        sed -i "s|REPLACE_IMAGE_TAG|$IMAGE_REPO:latest|" nodejs-app-deployment.yaml
 
     # Deploy the updated Docker image to the GKE cluster
     - name: Deploy Database & Pacman
