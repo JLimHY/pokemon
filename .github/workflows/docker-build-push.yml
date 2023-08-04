@@ -49,8 +49,9 @@ jobs:
     # Build & push Docker image to Docker Hub
     - name: Build and push Docker image
       run: |
-        docker build -t $DOCKER_HUB_USERNAME/charizard:$GITHUB_SHA .
-        docker push $DOCKER_HUB_USERNAME/charizard:$GITHUB_SHA
+        IMAGE_TAG=$DOCKER_HUB_USERNAME/charizard:$GITHUB_SHA
+        docker build -t $IMAGE_TAG .
+        docker push $IMAGE_TAG
 
     # Modify Deployment YAML using yq
     - name: Modify Deployment YAML
