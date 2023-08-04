@@ -3,6 +3,6 @@ resources:
 - nodejs-app-deployment.yaml
 
 images:
-- name: jlimhy/charizard
+- name: jlimhy/charizard:latest
   newName: $IMAGE_REPO
   newTag: REPLACE_IMAGE_TAG
