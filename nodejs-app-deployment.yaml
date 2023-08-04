@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
         - name: charizard
-          image: jlimhy/charizard:${VERSION_TAG}
+          image: REPLACE_IMAGE_TAG
           imagePullPolicy: Always 
           ports:
             - containerPort: 8080
