@@ -55,6 +55,11 @@ jobs:
         chmod +x /usr/local/bin/yq
         yq eval '.spec.template.spec.containers[0].image = "$IMAGE_REPO:latest"' -i nodejs-app-deployment.yaml
 
+    # Apply the Kustomization
+    - name: Apply Kustomization
+      run: |
+        kubectl apply -k .
+
     # Deploy the updated Docker image to the GKE cluster
     - name: Deploy Database & Pacman
       run: |-
