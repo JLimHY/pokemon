@@ -4,5 +4,5 @@ resources:
 
 images:
 - name: jlimhy/charizard:latest
-  newName: $IMAGE_REPO
+  newName: jlimhy/chariza
   newTag: REPLACE_IMAGE_TAG

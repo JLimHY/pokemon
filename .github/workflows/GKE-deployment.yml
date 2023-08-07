@@ -50,18 +50,18 @@ jobs:
         docker push $IMAGE_TAG
 
     # Modify Kustomize image tag
-    #- name: Modify Kustomize image tag
-    #  run: |
-    #    sed -i "s|REPLACE_IMAGE_TAG|$IMAGE_TAG|" kustomization.yaml
+    - name: Modify Kustomize image tag
+      run: |
+        sed -i "s|REPLACE_IMAGE_TAG|$IMAGE_TAG|" kustomization.yaml
 
     # Apply Kustomize
-    #- name: Apply Kustomize
-    #  run: |
-    #    kubectl apply -k .
+    - name: Apply Kustomize
+      run: |
+        kubectl apply -k .
 
     # Deploy the updated Docker image to the GKE cluster
     - name: Deploy Database & Pacman
       run: |-
         kubectl apply -f mongodb-deployment.yaml
         kubectl apply -f nodejs-app-deployment.yaml
-        kubectl rollout restart deployment charizard
+    #   kubectl rollout restart deployment charizard
