@@ -3,6 +3,5 @@ resources:
 - nodejs-app-deployment.yaml
 
 images:
-- name: jlimhy/charizard:latest
-  newName: jlimhy/chariza
-  newTag: REPLACE_IMAGE_TAG
+- newTag: "12345"
+  

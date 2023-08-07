@@ -50,9 +50,9 @@ jobs:
         docker push $IMAGE_TAG
 
     # Modify Kustomize image tag
-    - name: Modify Kustomize image tag
-      run: |
-        sed -i "s|REPLACE_IMAGE_TAG|$IMAGE_TAG|" kustomization.yaml
+    #- name: Modify Kustomize image tag
+    #  run: |
+    #    sed -i "s|REPLACE_IMAGE_TAG|$IMAGE_TAG|" kustomization.yaml
 
     # Apply Kustomize
     - name: Apply Kustomize
